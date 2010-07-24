@@ -36,4 +36,4 @@ Specs
 
 Run the specs with
 
-    spec stl_spec.rb --format specdoc
+    spec spec/stl_spec.rb --format specdoc
