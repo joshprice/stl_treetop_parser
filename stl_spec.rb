@@ -32,6 +32,7 @@ describe "STL" do
       result = @p.parse("solid name\nendsolid name\n")
       result.should_not be_nil
       result.facet.text_value.should == ""
+      result.facet.elements.should == []
     end
   end
 
@@ -59,6 +60,7 @@ describe "STL" do
       facet.facet_start.nk.value.should == 1.0
       facet.outer_loop.text_value.should_not == ""
       facet.outer_loop.text_value.should == "outer loop\nendloop\n"
+      facet.outer_loop.vertex.elements.should == []
     end
 
     it "should parse single vertex in outer loop" do
