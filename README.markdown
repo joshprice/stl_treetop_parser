@@ -7,6 +7,9 @@ An STL file format represents 3D objects.
 
 The treetop grammar doesn't yet return anything but `text_value` for each node but this could be extended to be a nicer structure.
 
+File format
+-----------
+
 This is what an STL file looks like:
 
     solid rect
@@ -29,3 +32,10 @@ This is what an STL file looks like:
 The STL file format spec can be found here:
 
 http://en.wikipedia.org/wiki/STL_%28file_format%29
+
+Specs
+-----
+
+Run the specs with
+
+    spec stl_spec.rb --format specdoc
