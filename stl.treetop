@@ -7,11 +7,11 @@ grammar STL
 
   # solid
   rule solid
-    solid_start facet solid_end
+    solid_start newline facet solid_end newline?
   end
   
   rule solid_start
-    "solid " solid_name newline
+    "solid " solid_name
   end
   
   rule solid_name
@@ -19,16 +19,16 @@ grammar STL
   end
   
   rule solid_end
-    "endsolid " solid_name newline?
+    "endsolid " solid_name
   end
   
   # facets
   rule facet
-    (facet_start outer_loop facet_end)?
+    (facet_start newline outer_loop facet_end newline)?
   end
   
   rule facet_start
-    "facet normal " space ni space nj space nk newline
+    "facet normal " space ni space nj space nk
   end
   
   rule ni
@@ -44,20 +44,20 @@ grammar STL
   end
   
   rule facet_end
-    "endfacet" newline
+    "endfacet"
   end
 
   # outer loop
   rule outer_loop
-    (outer_loop_start vertex outer_loop_end)?
+    (outer_loop_start newline vertex outer_loop_end newline)?
   end
   
   rule outer_loop_start
-    "outer loop" newline
+    "outer loop"
   end
   
   rule outer_loop_end
-    "endloop" newline
+    "endloop"
   end
   
   # vertex
