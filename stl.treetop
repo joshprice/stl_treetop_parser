@@ -1,0 +1,91 @@
+grammar STL
+  
+  # hook for the top level
+  rule stl
+    solid
+  end
+
+  # solid
+  rule solid
+    solid_start facet* solid_end
+  end
+  
+  rule solid_start
+    "solid " solid_name newline
+  end
+  
+  rule solid_name
+    [a-zA-Z0-9]*
+  end
+  
+  rule solid_end
+    "endsolid " solid_name newline?
+  end
+  
+  # facets
+  rule facet
+    facet_start outer_loop* facet_end
+  end
+  
+  rule facet_start
+    "facet normal " space ni space nj space nk newline
+  end
+  
+  rule ni
+    number
+  end
+  
+  rule nj
+    number
+  end
+  
+  rule nk
+    number
+  end
+  
+  rule facet_end
+    "endfacet" newline
+  end
+
+  # outer loop
+  rule outer_loop
+    outer_loop_start vertex* outer_loop_end
+  end
+  
+  rule outer_loop_start
+    space "outer loop" newline
+  end
+  
+  rule outer_loop_end
+    space "endloop" newline
+  end
+  
+  # vertex
+  rule vertex
+    space "vertex" space vx space vy space vz newline
+  end
+  
+  rule vx
+    number
+  end
+  
+  rule vy
+    number
+  end
+  
+  rule vz
+    number
+  end
+  
+  rule number
+    "-"? [0-9]+ "." [0-9]+
+  end
+  
+  rule space
+    [ \t]*
+  end
+  
+  rule newline
+    space "\n"+
+  end
+end
