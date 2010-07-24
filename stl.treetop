@@ -7,7 +7,7 @@ grammar STL
 
   # solid
   rule solid
-    solid_start newline facet solid_end newline?
+    space solid_start newline facet solid_end newline?
   end
   
   rule solid_start
@@ -24,7 +24,7 @@ grammar STL
   
   # facets
   rule facet
-    (facet_start newline outer_loop facet_end newline)?
+    (facet_start newline outer_loop facet_end newline)*
   end
   
   rule facet_start
