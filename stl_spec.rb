@@ -1,6 +1,5 @@
 require 'treetop'
 require 'stl'
-require 'ap'
 
 describe "STL treetop parser" do
   before do
