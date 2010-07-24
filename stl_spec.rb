@@ -109,9 +109,9 @@ describe "STL" do
       result.should_not be_nil
       facets = result.facet.elements
       facets[0].text_value.should_not be_nil
-      facets[0].facet_start.ni.text_value.should == "0.0"
-      facets[0].facet_start.nj.text_value.should == "0.0"
-      facets[0].facet_start.nk.text_value.should == "-1.0"
+      facets[0].facet_start.ni.value.should == 0.0
+      facets[0].facet_start.nj.value.should == 0.0
+      facets[0].facet_start.nk.value.should == -1.0
       facets[0].outer_loop.vertex.elements[0].vx.value.should == 116.377952755906
       facets[0].outer_loop.vertex.elements[0].vy.value.should == 66.1023622047244
       facets[0].outer_loop.vertex.elements[0].vz.value.should == 0.0
@@ -122,9 +122,9 @@ describe "STL" do
       facets[0].outer_loop.vertex.elements[2].vy.value.should == 66.1023622047244
       facets[0].outer_loop.vertex.elements[2].vz.value.should == 0.0
       facets[1].text_value.should_not be_nil
-      facets[1].facet_start.ni.text_value.should == "0.0"
-      facets[1].facet_start.nj.text_value.should == "0.0"
-      facets[1].facet_start.nk.text_value.should == "-1.0"
+      facets[1].facet_start.ni.value.should == 0.0
+      facets[1].facet_start.nj.value.should == 0.0
+      facets[1].facet_start.nk.value.should == -1.0
       facets[1].outer_loop.vertex.elements[0].vx.value.should == 0.0
       facets[1].outer_loop.vertex.elements[0].vy.value.should == 0.0
       facets[1].outer_loop.vertex.elements[0].vz.value.should == 0.0
