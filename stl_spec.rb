@@ -60,13 +60,13 @@ describe "STL treetop parser" do
       facet.facet_start.nj.text_value.should == "0.0"
       facet.facet_start.nk.text_value.should == "1.0"
       facet.outer_loop.text_value.should_not == ""
-      facet.outer_loop.text_value.should == "  outer loop\nendloop\n"
+      facet.outer_loop.text_value.should == "outer loop\nendloop\n"
     end
 
     it "should parse single vertex in outer loop" do
       result = @p.parse("solid onefacet\nfacet normal -1.0 0.0 1.0\n  outer loop\n    vertex -1.0 0.0 1.0\nendloop\nendfacet\nendsolid onefacet")
       result.should_not be_nil
-      result.facet.outer_loop.vertex.text_value.should == "    vertex -1.0 0.0 1.0\n"
+      result.facet.outer_loop.vertex.text_value.should == "vertex -1.0 0.0 1.0\n"
       result.facet.outer_loop.vertex.elements[0].vx.text_value.should == "-1.0"
       result.facet.outer_loop.vertex.elements[0].vy.text_value.should == "0.0"
       result.facet.outer_loop.vertex.elements[0].vz.text_value.should == "1.0"
@@ -75,13 +75,39 @@ describe "STL treetop parser" do
     it "should parse multiple vertices in outer loop" do
       result = @p.parse("solid onefacet\nfacet normal -1.0 0.0 1.0\n  outer loop\n    vertex -1.0 0.0 1.0\n    vertex -2.0 0.0 2.0\nendloop\nendfacet\nendsolid onefacet")
       result.should_not be_nil
-      result.facet.outer_loop.vertex.text_value.should == "    vertex -1.0 0.0 1.0\n    vertex -2.0 0.0 2.0\n"
+      result.facet.outer_loop.vertex.text_value.should == "vertex -1.0 0.0 1.0\n    vertex -2.0 0.0 2.0\n"
       result.facet.outer_loop.vertex.elements[0].vx.text_value.should == "-1.0"
       result.facet.outer_loop.vertex.elements[0].vy.text_value.should == "0.0"
       result.facet.outer_loop.vertex.elements[0].vz.text_value.should == "1.0"
       result.facet.outer_loop.vertex.elements[1].vx.text_value.should == "-2.0"
       result.facet.outer_loop.vertex.elements[1].vy.text_value.should == "0.0"
       result.facet.outer_loop.vertex.elements[1].vz.text_value.should == "2.0"
+    end
+  end
+  
+  describe "real STL example" do
+    it "should parse" do
+      stl_doc = <<-STL
+        solid rect
+        facet normal 0.0 0.0 -1.0
+           outer loop
+              vertex 116.377952755906 66.1023622047244 0.0
+              vertex 0.0 0.0 0.0
+              vertex 0.0 66.1023622047244 0.0
+           endloop
+        endfacet
+        facet normal 0.0 0.0 -1.0
+           outer loop
+              vertex 0.0 0.0 0.0
+              vertex 116.377952755906 66.1023622047244 0.0
+              vertex 116.377952755906 0.0 0.0
+           endloop
+        endfacet
+        endsolid rect
+      STL
+      puts stl_doc
+      result = @p.parse(stl_doc)
+      result.should_not be_nil
     end
   end
 end

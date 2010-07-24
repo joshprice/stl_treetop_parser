@@ -53,16 +53,16 @@ grammar STL
   end
   
   rule outer_loop_start
-    space "outer loop" newline
+    "outer loop" newline
   end
   
   rule outer_loop_end
-    space "endloop" newline
+    "endloop" newline
   end
   
   # vertex
   rule vertex
-    (space "vertex" space vx space vy space vz newline)*
+    ("vertex" space vx space vy space vz newline)*
   end
   
   rule vx
@@ -86,6 +86,6 @@ grammar STL
   end
   
   rule newline
-    space "\n"+
+    space "\n"+ space
   end
 end
