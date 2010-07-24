@@ -29,7 +29,7 @@ This is what an STL file looks like:
     endfacet
     endsolid rect
 
-[file_format](http://en.wikipedia.org/wiki/STL_%28file_format%29 "The STL file format spec")
+[The STL file format spec](http://en.wikipedia.org/wiki/STL_%28file_format%29)
 
 Specs
 -----
