@@ -7,7 +7,7 @@ grammar STL
 
   # solid
   rule solid
-    solid_start facet* solid_end
+    solid_start facet solid_end
   end
   
   rule solid_start
@@ -24,7 +24,7 @@ grammar STL
   
   # facets
   rule facet
-    facet_start outer_loop* facet_end
+    (facet_start outer_loop facet_end)?
   end
   
   rule facet_start
@@ -49,7 +49,7 @@ grammar STL
 
   # outer loop
   rule outer_loop
-    outer_loop_start vertex* outer_loop_end
+    (outer_loop_start vertex outer_loop_end)?
   end
   
   rule outer_loop_start
@@ -62,7 +62,7 @@ grammar STL
   
   # vertex
   rule vertex
-    space "vertex" space vx space vy space vz newline
+    (space "vertex" space vx space vy space vz newline)*
   end
   
   rule vx

@@ -11,7 +11,9 @@ describe "STL treetop parser" do
     it "should parse an anonymous solid" do
       result = @p.parse("solid \nendsolid \n")
       result.should_not be_nil
+      result.solid_start.text_value.should == "solid \n"
       result.solid_start.solid_name.text_value.should == ""
+      result.solid_end.text_value.should == "endsolid \n"
     end
 
     it "should handle EOF on last line" do
@@ -31,16 +33,19 @@ describe "STL treetop parser" do
       result = @p.parse("solid name\nendsolid name\n")
       result.should_not be_nil
       #puts result.inspect
-      result.solid.facet.should be_nil
+      result.facet.text_value.should == ""
     end
   end
 
   describe "named solid with one facet but no outer loop" do
     it "should parse facet" do
-      result = @p.parse("solid onefacet\nfacet normal 0.0 0.0 1.0\nendfacet\nendsolid onefacet")
+      result = @p.parse("solid onefacet\nfacet normal -1.0 0.0 1.0\nendfacet\nendsolid onefacet")
       result.should_not be_nil
-      ap result.methods.sort
-      result.facet.text_value.should_not be_nil
+      facet = result.facet
+      facet.text_value.should_not be_nil
+      facet.facet_start.ni.text_value.should == "-1.0"
+      facet.facet_start.nj.text_value.should == "0.0"
+      facet.facet_start.nk.text_value.should == "1.0"
     end
 
   end
