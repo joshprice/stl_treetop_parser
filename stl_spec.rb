@@ -1,7 +1,7 @@
 require 'treetop'
 require 'stl'
 
-describe "STL treetop parser" do
+describe "STL" do
   before do
     @p = STLParser.new
   end
@@ -86,7 +86,7 @@ describe "STL treetop parser" do
   end
   
   describe "named solid with multiple facets" do
-    it "should parse" do
+    it "should parse solid with arbitrary indentation" do
       stl_doc = <<-STL
         solid rect
         facet normal 0.0 0.0 -1.0
