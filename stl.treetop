@@ -45,19 +45,7 @@ grammar STL
   end
   
   rule facet_start
-    "facet normal" S ni s nj s nk
-  end
-  
-  rule ni
-    number
-  end
-  
-  rule nj
-    number
-  end
-  
-  rule nk
-    number
+    "facet normal" S ni:number s nj:number s nk:number
   end
   
   rule facet_end
@@ -79,23 +67,11 @@ grammar STL
   
   # vertex
   rule vertex
-    ("vertex" S vx s vy s vz newline {
+    ("vertex" S vx:number s vy:number s vz:number newline {
       def value
         [vx.value, vy.value, vz.value]
       end
     })*
-  end
-  
-  rule vx
-    number
-  end
-  
-  rule vy
-    number
-  end
-  
-  rule vz
-    number
   end
   
   rule number
