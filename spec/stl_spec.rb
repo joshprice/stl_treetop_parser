@@ -33,6 +33,7 @@ describe "STL" do
     it "should have no facets" do
       solid = @p.parse("solid name\nendsolid name\n")
       solid.should_not be_nil
+      solid.facets.should == []
       solid.facet.text_value.should == ""
       solid.facet.elements.should == []
     end
@@ -42,7 +43,9 @@ describe "STL" do
     it "should parse facet" do
       solid = @p.parse("solid onefacet\nfacet normal -1.0 0.0 1.0\nendfacet\nendsolid onefacet")
       solid.should_not be_nil
-      facet = solid.facet.elements[0]
+      solid.facets.size.should == 1
+      solid.facets[0].normal.should == [-1.0, 0.0, 1.0]
+      facet = solid.facets[0]
       facet.text_value.should_not be_nil
       facet.facet_start.ni.value.should == -1.0
       facet.facet_start.nj.value.should == 0.0

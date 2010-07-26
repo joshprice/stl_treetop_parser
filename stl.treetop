@@ -11,6 +11,10 @@ grammar STL
       def name
         solid_start.solid_name.text_value
       end
+      
+      def facets
+        facet.elements
+      end
     }
   end
   
@@ -28,7 +32,11 @@ grammar STL
   
   # facets
   rule facet
-    (facet_start newline outer_loop facet_end newline)*
+    (facet_start newline outer_loop facet_end newline {
+      def normal
+        [facet_start.ni.value, facet_start.nj.value, facet_start.nk.value]
+      end
+    })*
   end
   
   rule facet_start
