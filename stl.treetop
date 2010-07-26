@@ -7,7 +7,7 @@ grammar STL
 
   # solid
   rule solid
-    space solid_start newline facet solid_end newline? {
+    s solid_start newline facet solid_end newline? {
       def name
         solid_start.solid_name.text_value
       end
@@ -19,7 +19,7 @@ grammar STL
   end
   
   rule solid_start
-    "solid " solid_name
+    "solid" S solid_name
   end
   
   rule solid_name
@@ -27,10 +27,11 @@ grammar STL
   end
   
   rule solid_end
-    "endsolid " solid_name
+    "endsolid" S solid_name
   end
   
   # facets
+  # Note the fact that the * modifier is required here rather than in the solid rule is annoying
   rule facet
     (facet_start newline outer_loop facet_end newline {
       def normal
@@ -44,7 +45,7 @@ grammar STL
   end
   
   rule facet_start
-    "facet normal " space ni space nj space nk
+    "facet normal" S ni s nj s nk
   end
   
   rule ni
@@ -78,7 +79,7 @@ grammar STL
   
   # vertex
   rule vertex
-    ("vertex" space vx space vy space vz newline {
+    ("vertex" S vx s vy s vz newline {
       def value
         [vx.value, vy.value, vz.value]
       end
@@ -105,11 +106,15 @@ grammar STL
     }
   end
   
-  rule space
+  rule s
     [ \t]*
   end
   
+  rule S
+    [ \t]+
+  end
+  
   rule newline
-    space "\n"+ space
+    s "\n"+ s
   end
 end
