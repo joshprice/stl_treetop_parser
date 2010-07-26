@@ -83,8 +83,8 @@ describe "STL" do
   end
   
   describe "named solid with multiple facets" do
-    it "should parse solid with arbitrary indentation" do
-      stl_doc = <<-STL
+    before do
+      @stl_doc = <<-STL
         solid rect
         facet normal 0.0 0.0 -1.0
            outer loop
@@ -102,7 +102,27 @@ describe "STL" do
         endfacet
         endsolid rect
       STL
-      solid = @p.parse(stl_doc)
+    end
+    
+    it "should parse solid with arbitrary indentation (the compact way)" do
+      solid = @p.parse(@stl_doc)
+      solid.name.should == "rect"
+      solid.facets.size.should == 2
+      solid.facets[0].normal.should == [0.0, 0.0, -1.0]
+      solid.facets[0].vertices.size.should == 3
+      solid.facets[0].vertices[0].value.should == [116.377952755906, 66.1023622047244, 0.0]
+      solid.facets[0].vertices[1].value.should == [0.0, 0.0, 0.0]
+      solid.facets[0].vertices[2].value.should == [0.0, 66.1023622047244, 0.0]
+
+      solid.facets[1].normal.should == [0.0, 0.0, -1.0]
+      solid.facets[1].vertices.size.should == 3
+      solid.facets[1].vertices[0].value.should == [0.0, 0.0, 0.0]
+      solid.facets[1].vertices[1].value.should == [116.377952755906, 116.377952755906, 0.0]
+      solid.facets[1].vertices[2].value.should == [116.377952755906, 0.0, 0.0]
+    end
+    
+    it "should parse solid with arbitrary indentation (the long way)" do
+      solid = @p.parse(@stl_doc)
       solid.should_not be_nil
       facets = solid.facet.elements
       facets[0].text_value.should_not be_nil
