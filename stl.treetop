@@ -1,10 +1,4 @@
 grammar STL
-  
-  # hook for the top level
-  rule stl
-    solid
-  end
-
   # solid
   # the facet label forces a facet method to be generated even when the facet is missing and not matched
   rule solid
