@@ -7,7 +7,7 @@ grammar STL
 
   # solid
   rule solid
-    s solid_start newline facet solid_end newline? {
+    s solid_start newline facet:label* solid_end newline? {
       def name
         solid_start.solid_name.text_value
       end
@@ -33,7 +33,7 @@ grammar STL
   # facets
   # Note the fact that the * modifier is required here rather than in the solid rule is annoying
   rule facet
-    (facet_start newline outer_loop facet_end newline {
+    facet_start newline outer_loop facet_end newline {
       def normal
         [facet_start.ni.value, facet_start.nj.value, facet_start.nk.value]
       end
@@ -41,7 +41,7 @@ grammar STL
       def vertices
         outer_loop.vertex.elements
       end
-    })*
+    }
   end
   
   rule facet_start
