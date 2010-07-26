@@ -86,12 +86,14 @@ grammar STL
     }
   end
   
+  # optional whitespace
   rule s
     [ \t]*
   end
   
+  # mandatory space
   rule S
-    [ \t]+
+    " " s
   end
   
   rule newline
