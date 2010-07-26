@@ -36,6 +36,10 @@ grammar STL
       def normal
         [facet_start.ni.value, facet_start.nj.value, facet_start.nk.value]
       end
+
+      def vertices
+        outer_loop.vertex.elements
+      end
     })*
   end
   
@@ -74,7 +78,11 @@ grammar STL
   
   # vertex
   rule vertex
-    ("vertex" space vx space vy space vz newline)*
+    ("vertex" space vx space vy space vz newline {
+      def value
+        [vx.value, vy.value, vz.value]
+      end
+    })*
   end
   
   rule vx

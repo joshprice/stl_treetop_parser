@@ -45,50 +45,40 @@ describe "STL" do
       solid.should_not be_nil
       solid.facets.size.should == 1
       solid.facets[0].normal.should == [-1.0, 0.0, 1.0]
-      facet = solid.facets[0]
-      facet.text_value.should_not be_nil
-      facet.facet_start.ni.value.should == -1.0
-      facet.facet_start.nj.value.should == 0.0
-      facet.facet_start.nk.value.should == 1.0
-      facet.outer_loop.text_value.should == ""
+      solid.facets[0].text_value.should_not be_nil
+      solid.facets[0].facet_start.ni.value.should == -1.0
+      solid.facets[0].facet_start.nj.value.should == 0.0
+      solid.facets[0].facet_start.nk.value.should == 1.0
+      solid.facets[0].outer_loop.text_value.should == ""
     end
   end
 
   describe "named solid with one facet and an outer loop" do
     it "should parse outer loop with no vertices" do
       solid = @p.parse("solid onefacet\nfacet normal -1.0 0.0 1.0\n  outer loop\nendloop\nendfacet\nendsolid onefacet")
-      solid.should_not be_nil
-      facet = solid.facet.elements[0]
-      facet.text_value.should_not be_nil
-      facet.facet_start.ni.value.should == -1.0
-      facet.facet_start.nj.value.should == 0.0
-      facet.facet_start.nk.value.should == 1.0
-      facet.outer_loop.text_value.should_not == ""
-      facet.outer_loop.text_value.should == "outer loop\nendloop\n"
-      facet.outer_loop.vertex.elements.should == []
+      solid.facets[0].normal.should == [-1.0, 0.0, 1.0]
+      solid.facets[0].outer_loop.text_value.should_not == ""
+      solid.facets[0].outer_loop.text_value.should == "outer loop\nendloop\n"
+      solid.facets[0].outer_loop.vertex.elements.should == []
     end
 
     it "should parse single vertex in outer loop" do
       solid = @p.parse("solid onefacet\nfacet normal -1.0 0.0 1.0\n  outer loop\n    vertex -1.0 0.0 1.0\nendloop\nendfacet\nendsolid onefacet")
       solid.should_not be_nil
-      facet = solid.facet.elements[0]
-      facet.outer_loop.vertex.text_value.should == "vertex -1.0 0.0 1.0\n"
-      facet.outer_loop.vertex.elements[0].vx.value.should == -1.0
-      facet.outer_loop.vertex.elements[0].vy.value.should == 0.0
-      facet.outer_loop.vertex.elements[0].vz.value.should == 1.0
+      solid.facets[0].vertices.size.should == 1
+      solid.facets[0].vertices[0].value.should == [-1.0, 0.0, 1.0]
+      solid.facets[0].outer_loop.vertex.text_value.should == "vertex -1.0 0.0 1.0\n"
+      solid.facets[0].outer_loop.vertex.elements[0].vx.value.should == -1.0
+      solid.facets[0].outer_loop.vertex.elements[0].vy.value.should == 0.0
+      solid.facets[0].outer_loop.vertex.elements[0].vz.value.should == 1.0
     end
 
     it "should parse multiple vertices in outer loop" do
       solid = @p.parse("solid onefacet\nfacet normal -1.0 0.0 1.0\n  outer loop\n    vertex -1.0 0.0 1.0\n    vertex -2.0 0.0 2.0\nendloop\nendfacet\nendsolid onefacet")
       solid.should_not be_nil
-      facet = solid.facet.elements[0]
-      facet.outer_loop.vertex.text_value.should == "vertex -1.0 0.0 1.0\n    vertex -2.0 0.0 2.0\n"
-      facet.outer_loop.vertex.elements[0].vx.value.should == -1.0
-      facet.outer_loop.vertex.elements[0].vy.value.should == 0.0
-      facet.outer_loop.vertex.elements[0].vz.value.should == 1.0
-      facet.outer_loop.vertex.elements[1].vx.value.should == -2.0
-      facet.outer_loop.vertex.elements[1].vy.value.should == 0.0
-      facet.outer_loop.vertex.elements[1].vz.value.should == 2.0
+      solid.facets[0].vertices.size.should == 2
+      solid.facets[0].vertices[0].value.should == [-1.0, 0.0, 1.0]
+      solid.facets[0].vertices[1].value.should == [-2.0, 0.0, 2.0]
     end
   end
   
