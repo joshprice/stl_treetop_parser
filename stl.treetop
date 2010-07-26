@@ -6,8 +6,9 @@ grammar STL
   end
 
   # solid
+  # the facet label forces a facet method to be generated even when the facet is missing and not matched
   rule solid
-    s solid_start newline facet:label* solid_end newline? {
+    s solid_start newline facet:facet* solid_end newline? {
       def name
         solid_start.solid_name.text_value
       end
@@ -31,9 +32,8 @@ grammar STL
   end
   
   # facets
-  # Note the fact that the * modifier is required here rather than in the solid rule is annoying
   rule facet
-    facet_start newline outer_loop facet_end newline {
+    facet_start newline outer_loop:outer_loop? facet_end newline {
       def normal
         [facet_start.ni.value, facet_start.nj.value, facet_start.nk.value]
       end
@@ -54,7 +54,7 @@ grammar STL
 
   # outer loop
   rule outer_loop
-    (outer_loop_start newline vertex outer_loop_end newline)?
+    outer_loop_start newline vertex:vertex* outer_loop_end newline
   end
   
   rule outer_loop_start
@@ -67,11 +67,11 @@ grammar STL
   
   # vertex
   rule vertex
-    ("vertex" S vx:number s vy:number s vz:number newline {
+    "vertex" S vx:number s vy:number s vz:number newline {
       def value
         [vx.value, vy.value, vz.value]
       end
-    })*
+    }
   end
   
   rule number
