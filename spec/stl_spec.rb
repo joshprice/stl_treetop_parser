@@ -10,6 +10,7 @@ describe "STL" do
     it "should parse an anonymous solid" do
       solid = @p.parse("solid \nendsolid \n")
       solid.should_not be_nil
+      solid.name.should == ""
       solid.solid_start.text_value.should == "solid "
       solid.solid_start.solid_name.text_value.should == ""
       solid.solid_end.text_value.should == "endsolid "
@@ -24,6 +25,7 @@ describe "STL" do
     it "should parse a named solid" do
       solid = @p.parse("solid name\nendsolid name\n")
       solid.should_not be_nil
+      solid.name.should == "name"
       solid.solid_start.solid_name.text_value.should == "name"
       solid.solid_end.solid_name.text_value.should == "name"
     end

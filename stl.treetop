@@ -7,7 +7,11 @@ grammar STL
 
   # solid
   rule solid
-    space solid_start newline facet solid_end newline?
+    space solid_start newline facet solid_end newline? {
+      def name
+        solid_start.solid_name.text_value
+      end
+    }
   end
   
   rule solid_start
