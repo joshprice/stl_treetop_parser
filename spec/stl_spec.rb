@@ -11,9 +11,9 @@ describe "STL" do
       solid = @p.parse("solid \nendsolid \n")
       solid.should_not be_nil
       solid.name.should == ""
-      solid.solid_start.text_value.should == "solid "
+      solid.solid_start.text_value.should == "solid \n"
       solid.solid_start.solid_name.text_value.should == ""
-      solid.solid_end.text_value.should == "endsolid "
+      solid.solid_end.text_value.should == "endsolid \n"
     end
 
     it "should handle EOF on last line" do
